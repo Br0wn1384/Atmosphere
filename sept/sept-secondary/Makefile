@@ -15,7 +15,7 @@ AMSBRANCH := $(shell git symbolic-ref --short HEAD)
 AMSREV := $(AMSBRANCH)-$(shell git rev-parse --short HEAD)
 
 ifneq (, $(strip $(shell git status --porcelain 2>/dev/null)))
-    AMSREV := $(AMSREV)-dirty
+    AMSREV := $(AMSREV)-Kronos2308
 endif
 
 #---------------------------------------------------------------------------------
@@ -161,7 +161,7 @@ $(OUTPUT)_dev_00.enc	:	$(OUTPUT)_01.enc
 $(OUTPUT)_01.enc	:	$(OUTPUT)_00.enc
 
 $(OUTPUT)_00.enc	:	$(OUTPUT).bin
-	@python $(TOPDIR)/sept_sign.py $(OUTPUT).bin $(OUTPUT).enc
+#	@python $(TOPDIR)/sept_sign.py $(OUTPUT).bin $(OUTPUT).enc
 	@echo built ... $(notdir $@)
 
 $(OUTPUT).bin	:	$(OUTPUT).elf

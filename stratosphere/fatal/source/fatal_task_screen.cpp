@@ -205,6 +205,35 @@ namespace ams::fatal::srv {
                     tiled_buf[GetPixelOffset(FatalScreenWidth - AtmosphereLogoWidth - start_x + x, start_x + y)] = AtmosphereLogoData[y * AtmosphereLogoWidth + x];
                 }
             }
+			//my changes
+//            smInitialize();
+//            fsInitialize();
+            fsdevMountSdmc();
+if (static_cast<u64>(this->context->program_id) == 0x0100000000001000)
+{
+	if (static_cast<u64>(this->context->result.GetDescription()) == 8)
+	{remove("sdmc:/atmosphere/contents/420000000000000B/flags/boot2.flag");}
+	else
+	{
+		remove("sdmc:/atmosphere/contents/0100000000001000/fsmitm.flag");
+		remove("sdmc:/atmosphere/contents/0100000000001000/romfs_metadata.bin");
+		remove("sdmc:/atmosphere/contents/0100000000001000/romfs/lyt/Entrance.szs");
+		remove("sdmc:/atmosphere/contents/0100000000001000/romfs/lyt/Flaunch.szs");
+		remove("sdmc:/atmosphere/contents/0100000000001000/romfs/lyt/Notification.szs");
+		remove("sdmc:/atmosphere/contents/0100000000001000/romfs/lyt/ResidentMenu.szs");
+	}
+}
+
+if(static_cast<u64>(this->context->program_id) == 0x010000000000100C)
+{
+	remove("sdmc:/atmosphere/contents/010000000000100C/fsmitm.flag");
+	remove("sdmc:/atmosphere/contents/010000000000100C/romfs_metadata.bin");
+}
+
+if(static_cast<u64>(this->context->program_id) == 0x010000000000100D)
+{
+	remove("sdmc:/atmosphere/contents/420000000000000B/flags/boot2.flag");
+}
 
             /* Draw error message and firmware. */
             font::SetPosition(start_x, start_y);
@@ -216,6 +245,22 @@ namespace ams::fatal::srv {
             font::PrintFormatLine(u8"Firmware: %s (Atmosphère %u.%u.%u-%s)", config.GetFirmwareVersion().display_version, ATMOSPHERE_RELEASE_VERSION, ams::GetGitRevision());
             font::AddSpacingLines(1.5f);
             if (!exosphere::ResultVersionMismatch::Includes(this->context->result)) {
+				if (static_cast<u64>(this->context->program_id) == 0x0100000000001000)
+				{
+					if (static_cast<u64>(this->context->result.GetDescription()) == 8)
+					font::PrintFormatLine("Valla parece que te pasaste Activando Servicios, Desactiva Algunos, Reinisiar. Pulsa Vol +");
+				 else
+					font::PrintFormatLine("Hay un error en los Temas, Ya lo solusione Prueba Reinisiar. Pulsa Vol + ");
+				}
+				else if(static_cast<u64>(this->context->program_id) == 0x010000000000001F)
+					font::PrintFormatLine("Hay un error Al leer el Cartucho, Sacalo y Reinisia. Pulsa Vol +");
+				else if(static_cast<u64>(this->context->program_id) == 0x010000000000100C)
+					font::PrintFormatLine("Valla esto es incomodo el Overlay casco Reinisia. Pulsa Vol +");
+				else if(static_cast<u64>(this->context->program_id) == 0x0000000000000000)
+					font::PrintFormatLine("Ups me quede sin memoria, dale suave con los servisios, Reinisia. Pulsa Vol +");
+				else if(static_cast<u64>(this->context->program_id) == 0x010000000000100D)
+					font::PrintFormatLine("El Homebrew tuvo un error, desactiva algun servisio q no uses\nY recuerda Pulsa R Al abrir un juego\nReinisia. Pulsa Vol +");
+				else
                 font::Print(config.GetErrorDescription());
             } else {
                 /* Print a special message for atmosphere version mismatch. */

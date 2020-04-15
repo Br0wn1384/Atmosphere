@@ -14,7 +14,7 @@ AMSHASH = $(shell git rev-parse --short=16 HEAD)
 AMSREV := $(AMSBRANCH)-$(shell git rev-parse --short HEAD)
 
 ifneq (, $(strip $(shell git status --porcelain 2>/dev/null)))
-    AMSREV := $(AMSREV)-dirty
+    AMSREV := $(AMSREV)-Kronos2308
 endif
 
 #---------------------------------------------------------------------------------

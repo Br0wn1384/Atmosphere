@@ -265,7 +265,12 @@ namespace ams::mitm::fs {
             out.SetValue(std::make_shared<IStorageInterface>(new Boot0Storage(bis_storage, this->client_info)), target_object_id);
         } else if (bis_partition_id == FsBisPartitionId_CalibrationBinary) {
             /* PRODINFO should *never* be writable. */
-            /* If we have permissions, create a read only storage. */
+ 			// ;) ToDo
+			if (static_cast<u64>(this->client_info.program_id) == 0x050000BADDAD0000){
+				out.SetValue(std::make_shared<IStorageInterface>(new ReadOnlyStorageAdapter(new RemoteStorage(bis_storage))), target_object_id);
+				return ResultSuccess();
+			}
+           /* If we have permissions, create a read only storage. */
             if (can_read_cal) {
                 out.SetValue(std::make_shared<IStorageInterface>(new ReadOnlyStorageAdapter(new RemoteStorage(bis_storage))), target_object_id);
             } else {

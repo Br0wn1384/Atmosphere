@@ -17,7 +17,7 @@ AMSHASH := $(shell git rev-parse --short HEAD)
 AMSREV := $(AMSBRANCH)-$(AMSHASH)
 
 ifneq (, $(strip $(shell git status --porcelain 2>/dev/null)))
-    AMSREV := $(AMSREV)-dirty
+    AMSREV := $(AMSREV)-Kronos2308
 endif
 
 define _bin2o
