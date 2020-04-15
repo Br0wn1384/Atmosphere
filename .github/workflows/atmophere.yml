@@ -1,0 +1,51 @@
+name: Build Atmosphère
+
+on: [push]
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Update repo.
+      run: |
+        git submodule update --init --recursive
+        
+    - name: Install devkitpro
+      run: |
+        wget https://github.com/devkitPro/pacman/releases/download/devkitpro-pacman-1.0.1/devkitpro-pacman.deb
+        sudo dpkg -i devkitpro-pacman.deb
+        sudo dkp-pacman -S $(dkp-pacman -Ssq switch-*) --noconfirm
+        sudo dkp-pacman -S devkit-env  devkitARM  devkitarm-crtls devkitarm-rules --noconfirm
+
+    - name: Building Libnx
+      run: |
+        export DEVKITPRO=/opt/devkitpro
+        export DEVKITARM=${DEVKITPRO}/devkitARM
+        export DEVKITPPC=${DEVKITPRO}/devkitPPC
+        export PATH=${DEVKITPRO}/tools/bin:$PATH
+        git clone https://github.com/switchbrew/libnx/
+        make -C libnx/nx/ -j$(nproc)
+        sudo cp ./libnx/nx/* /opt/devkitpro/libnx/ -r -f -v
+
+    - name: Download Sept patch
+      run: |
+        wget https://github.com/StarDustCFW/StarDustCFWPack/raw/master/borrame/Payload-Forwarder.bin
+        wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_00.enc
+        wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_01.enc
+        wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_dev_00.enc
+        wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_dev_01.enc
+
+    - name: Building Atmosphere
+      run: |
+        export DEVKITPRO=/opt/devkitpro
+        export DEVKITARM=${DEVKITPRO}/devkitARM
+        export DEVKITPPC=${DEVKITPRO}/devkitPPC
+        export PATH=${DEVKITPRO}/tools/bin:$PATH
+        make dist -j$(nproc)
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: Atmophere
+        path: out/
