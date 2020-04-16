@@ -31,7 +31,7 @@ jobs:
 
     - name: Download Sept patch
       run: |
-        wget https://github.com/StarDustCFW/StarDustCFWPack/raw/master/borrame/Payload-Forwarder.bin
+        wget https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/payload.bin
         wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_00.enc
         wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_01.enc
         wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_dev_00.enc
