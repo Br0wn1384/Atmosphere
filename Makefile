@@ -55,7 +55,8 @@ dist-no-debug: all
 	mkdir atmosphere-$(AMSVER)
 	mkdir atmosphere-$(AMSVER)/atmosphere
 	mkdir atmosphere-$(AMSVER)/sept
-#	mkdir atmosphere-$(AMSVER)/switch
+	mkdir atmosphere-$(AMSVER)/StarDust
+	mkdir atmosphere-$(AMSVER)/StarDust/payloads
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/contents/0100000000000008
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/contents/010000000000000D
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/contents/010000000000002B
@@ -66,7 +67,7 @@ dist-no-debug: all
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/fatal_errors
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/config_templates
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/config
-	cp payload.bin atmosphere-$(AMSVER)/atmosphere/reboot_payload.bin
+#	cp payload.bin atmosphere-$(AMSVER)/atmosphere/reboot_payload.bin
 	cp fusee/fusee-mtc/fusee-mtc.bin atmosphere-$(AMSVER)/atmosphere/fusee-mtc.bin
 	cp fusee/fusee-secondary/fusee-secondary.bin atmosphere-$(AMSVER)/atmosphere/fusee-secondary.bin
 	cp fusee/fusee-secondary/fusee-secondary.bin atmosphere-$(AMSVER)/sept/payload.bin
@@ -98,6 +99,7 @@ dist-no-debug: all
 #	rm -r atmosphere-$(AMSVER)
 	mkdir out
 	mv atmosphere-$(AMSVER) out/atmosphere-$(AMSVER)
+	cp fusee/fusee-primary/fusee-primary.bin out/atmosphere-$(AMSVER)/StarDust/payloads/Atmosphere.bin
 	cp fusee/fusee-primary/fusee-primary.bin out/Atmosphere.bin
 
 dist: dist-no-debug
