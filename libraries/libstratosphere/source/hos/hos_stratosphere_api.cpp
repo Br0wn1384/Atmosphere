@@ -13,22 +13,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <stratosphere.hpp>
+#include "hos_version_api_private.hpp"
 
-#pragma once
+namespace ams::os {
 
-#include <stratosphere/sf/sf_common.hpp>
-#include <stratosphere/sf/sf_lmem_utility.hpp>
-#include <stratosphere/sf/sf_mem_utility.hpp>
-#include <stratosphere/sf/sf_service_object.hpp>
-#include <stratosphere/sf/hipc/sf_hipc_server_session_manager.hpp>
+    void InitializeForStratosphereInternal();
 
-#include <stratosphere/sf/cmif/sf_cmif_inline_context.hpp>
-#include <stratosphere/sf/sf_fs_inline_context.hpp>
+}
 
-#include <stratosphere/sf/sf_out.hpp>
-#include <stratosphere/sf/sf_buffers.hpp>
-#include <stratosphere/sf/impl/sf_impl_command_serialization.hpp>
+namespace ams::hos {
 
-#include <stratosphere/sf/hipc/sf_hipc_server_manager.hpp>
+    void InitializeForStratosphere() {
+        /* Initialize the global os resource managers. This *must* be done before anything else in stratosphere. */
+        os::InitializeForStratosphereInternal();
 
-#include <stratosphere/sf/sf_mitm_dispatch.h>
+        /* Initialize hos::Version API. */
+        hos::SetVersionForLibnxInternal();
+    }
+
+}
