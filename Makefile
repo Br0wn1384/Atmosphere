@@ -2,6 +2,9 @@ TOPTARGETS := all clean dist-no-debug dist
 AMSBRANCH := $(shell git symbolic-ref --short HEAD)
 AMSHASH := $(shell git rev-parse --short HEAD)
 AMSREV := $(AMSBRANCH)-$(AMSHASH)
+#-----set local enviorment------
+export LIBNX_L = $(CURDIR)/libnx/nx
+#--------------------------------
 
 ifneq (, $(strip $(shell git status --porcelain 2>/dev/null)))
     AMSREV := $(AMSREV)-Kronos2308
