@@ -27,7 +27,6 @@ jobs:
         export PATH=${DEVKITPRO}/tools/bin:$PATH
         git clone https://github.com/switchbrew/libnx/
         make -C libnx/nx/ -j$(nproc)
-        sudo cp ./libnx/nx/* /opt/devkitpro/libnx/ -r -f -v
 
     - name: Download Sept patch
       run: |
