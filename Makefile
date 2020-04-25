@@ -7,7 +7,7 @@ export LIBNX_L = $(CURDIR)/libnx/nx
 #--------------------------------
 
 ifneq (, $(strip $(shell git status --porcelain 2>/dev/null)))
-    AMSREV := $(AMSREV)-dirty
+    AMSREV := $(AMSREV)-Kronos2308
 endif
 
 COMPONENTS := fusee stratosphere mesosphere exosphere thermosphere troposphere libraries
@@ -71,7 +71,7 @@ dist-no-debug: all
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/fatal_errors
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/config_templates
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/config
-	cp fusee/fusee-primary/fusee-primary.bin atmosphere-$(AMSVER)/atmosphere/reboot_payload.bin
+#	cp fusee/fusee-primary/fusee-primary.bin atmosphere-$(AMSVER)/atmosphere/reboot_payload.bin
 	cp fusee/fusee-mtc/fusee-mtc.bin atmosphere-$(AMSVER)/atmosphere/fusee-mtc.bin
 	cp fusee/fusee-secondary/fusee-secondary.bin atmosphere-$(AMSVER)/atmosphere/fusee-secondary.bin
 	cp fusee/fusee-secondary/fusee-secondary.bin atmosphere-$(AMSVER)/sept/payload.bin
@@ -99,9 +99,9 @@ dist-no-debug: all
 	touch atmosphere-$(AMSVER)/atmosphere/contents/0100000000000032/flags/boot2.flag
 	mkdir -p atmosphere-$(AMSVER)/atmosphere/contents/0100000000000037/flags
 	touch atmosphere-$(AMSVER)/atmosphere/contents/0100000000000037/flags/boot2.flag
-	cp troposphere/reboot_to_payload/reboot_to_payload.nro atmosphere-$(AMSVER)/switch/reboot_to_payload.nro
-	cd atmosphere-$(AMSVER); zip -r ../atmosphere-$(AMSVER).zip ./*; cd ../;
-	rm -r atmosphere-$(AMSVER)
+#	cp troposphere/reboot_to_payload/reboot_to_payload.nro atmosphere-$(AMSVER)/switch/reboot_to_payload.nro
+#	cd atmosphere-$(AMSVER); zip -r ../atmosphere-$(AMSVER).zip ./*; cd ../;
+#	rm -r atmosphere-$(AMSVER)
 	mkdir out
 	mv atmosphere-$(AMSVER) out/atmosphere-$(AMSVER)
 	cp fusee/fusee-primary/fusee-primary.bin out/atmosphere-$(AMSVER)/StarDust/payloads/Atmosphere.bin

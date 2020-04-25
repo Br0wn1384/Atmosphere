@@ -10,7 +10,7 @@ ifeq ($(strip $(DEVKITPRO)),)
 $(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>/devkitpro")
 endif
 
-include $(LIBNX_L)/switch_rules
+include $(DEVKITPRO)/libnx/switch_rules
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -21,7 +21,7 @@ CFLAGS      := $(ATMOSPHERE_CFLAGS) $(SETTINGS) $(DEFINES) $(INCLUDE)
 CXXFLAGS    := $(CFLAGS) $(ATMOSPHERE_CXXFLAGS) -flto
 ASFLAGS     := $(ATMOSPHERE_ASFLAGS) $(SETTINGS)
 
-LDFLAGS     := -specs=$(LIBNX_L)/switch.specs $(SETTINGS) -Wl,-Map,$(notdir $*.map)
+LDFLAGS     := -specs=$(DEVKITPRO)/libnx/switch.specs $(SETTINGS) -Wl,-Map,$(notdir $*.map)
 
 SOURCES     += $(call ALL_SOURCE_DIRS,../libvapours/source)
 
@@ -31,7 +31,7 @@ LIBS        := -lnx
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) $(LIBNX_L) $(ATMOSPHERE_LIBRARIES_DIR)/libvapours
+LIBDIRS	:= $(PORTLIBS) $(DEVKITPRO)/libnx $(ATMOSPHERE_LIBRARIES_DIR)/libvapours
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional

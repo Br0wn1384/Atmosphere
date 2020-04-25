@@ -27,10 +27,10 @@ jobs:
         export PATH=${DEVKITPRO}/tools/bin:$PATH
         git clone https://github.com/switchbrew/libnx
         make -C libnx/nx/ -j$(nproc)
+        sudo cp ./libnx/nx/* /opt/devkitpro/libnx/ -r -f -v
 
     - name: Download Sept patch
       run: |
-        wget https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/payload.bin
         wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_00.enc
         wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_01.enc
         wget -P sept/sept-secondary/ https://github.com/StarDustCFW/StarDustCFWPack/raw/master/SD_card_root/sept/sept-secondary_dev_00.enc
